@@ -41,6 +41,9 @@ const aliments = {
 const select = document.getElementById("aliment");
 const resultat = document.getElementById("resultat");
 
+let totalCalories = 0;
+let totalProteines = 0;
+
 for (const aliment in aliments) {
   const option = document.createElement("option");
   option.value = aliment;
@@ -60,7 +63,19 @@ function calculerCalories() {
   const kcal = (aliments[aliment].calories * grammes) / 100;
   const proteines = (aliments[aliment].proteines * grammes) / 100;
 
+  totalCalories += kcal;
+  totalProteines += proteines;
+
   resultat.innerHTML =
-    "<strong>" + Math.round(kcal) + " kcal</strong><br>" +
-    "Protéines : " + proteines.toFixed(1) + " g";
+    "<strong>Dernier ajout :</strong><br>" +
+    aliment + " - " + grammes + " g<br>" +
+    Math.round(kcal) + " kcal<br>" +
+    proteines.toFixed(1) + " g de protéines<br><br>" +
+
+    "<strong>Total journée :</strong><br>" +
+    Math.round(totalCalories) + " kcal<br>" +
+    totalProteines.toFixed(1) + " g de protéines<br><br>" +
+
+    "<strong>Calories restantes :</strong> " +
+    Math.round(2300 - totalCalories) + " kcal";
 }
